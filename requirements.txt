@@ -1,0 +1,17 @@
+# Python version
+python==3.10
+
+# Core packages
+numpy>=1.23
+pandas>=1.5
+matplotlib>=3.6
+seaborn>=0.12
+
+# Jupyter (for notebooks)
+jupyterlab>=3.4
+
+# File handling
+jsonschema>=4.17
+
+# Optional (for faster simulations)
+tqdm>=4.64
