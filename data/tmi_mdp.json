@@ -1,41 +1,40 @@
 {
-    "states": ["S1", "S2", "S3", "S4", "S5", "S6"],
-    "actions": ["no_intervention", "intervene"],
-    "transitions": {
-      "S1": {
-        "no_intervention": {"S2": 0.8, "S1": 0.2},
-        "intervene": {"S2": 0.3, "S1": 0.7}
-      },
-      "S2": {
-        "no_intervention": {"S3": 0.9, "S2": 0.1},
-        "intervene": {"S3": 0.4, "S2": 0.6}
-      },
-      "S3": {
-        "no_intervention": {"S4": 0.95, "S3": 0.05},
-        "intervene": {"S4": 0.5, "S3": 0.5}
-      },
-      "S4": {
-        "no_intervention": {"S5": 0.9, "S4": 0.1},
-        "intervene": {"S5": 0.4, "S4": 0.6}
-      },
-      "S5": {
-        "no_intervention": {"S6": 1.0},
-        "intervene": {"S6": 0.8, "S5": 0.2}
-      },
-      "S6": {
-        "no_intervention": {"S6": 1.0},
-        "intervene": {"S6": 1.0}
-      }
+  "states": ["S0", "S1", "S2", "S3", "S4", "S5"],
+  "actions": ["no_intervention", "intervene"],
+  "transitions": {
+    "S0": {
+      "no_intervention": {"S1": 0.8, "S0": 0.2},
+      "intervene": {"S1": 0.3, "S0": 0.7}
     },
-    "costs": {
-      "S1": {"no_intervention": 0, "intervene": 0.2},
-      "S2": {"no_intervention": 0, "intervene": 0.2},
-      "S3": {"no_intervention": 1, "intervene": 0.3},
-      "S4": {"no_intervention": 2, "intervene": 0.5},
-      "S5": {"no_intervention": 5, "intervene": 1.0},
-      "S6": {"no_intervention": 20, "intervene": 15}
+    "S1": {
+      "no_intervention": {"S2": 0.9, "S1": 0.1},
+      "intervene": {"S2": 0.4, "S1": 0.6}
     },
-    "initial_state": "S1",
-    "terminal_states": ["S6"]
-  }
-  
+    "S2": {
+      "no_intervention": {"S3": 0.95, "S2": 0.05},
+      "intervene": {"S3": 0.5, "S2": 0.5}
+    },
+    "S3": {
+      "no_intervention": {"S4": 0.9, "S3": 0.1},
+      "intervene": {"S4": 0.4, "S3": 0.6}
+    },
+    "S4": {
+      "no_intervention": {"S5": 1.0},
+      "intervene": {"S5": 0.8, "S4": 0.2}
+    },
+    "S5": {
+      "no_intervention": {"S5": 1.0},
+      "intervene": {"S5": 1.0}
+    }
+  },
+  "costs": {
+    "S0": {"no_intervention": 0.0, "intervene": 0.2},
+    "S1": {"no_intervention": 0.0, "intervene": 0.2},
+    "S2": {"no_intervention": 1.0, "intervene": 0.3},
+    "S3": {"no_intervention": 2.0, "intervene": 0.5},
+    "S4": {"no_intervention": 5.0, "intervene": 1.0},
+    "S5": {"no_intervention": 20.0, "intervene": 15.0}
+  },
+  "initial_state": "S0",
+  "terminal_states": ["S5"]
+}

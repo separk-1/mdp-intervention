@@ -89,26 +89,33 @@ Transitions represent how likely an operator is to move to the next misinterpret
 
 | From | To | P (no_intervention) | P (intervene) | Notes |
 |------|----|----------------------|---------------|-------|
-| S0 | S1 | 0.8 | 0.3 | Without intervention, misjudgment persists (80%) |
-| S1 | S2 | 0.9 | 0.4 | High forward progression without reassessment |
-| S2 | S3 | 0.95 | 0.5 | Nearly always misinterpreted without help |
-| S3 | S4 | 0.9 | 0.4 | Assumes system is overfilled, fails to reassess |
-| S4 | S5 | 1.0 | 0.8 | If not stopped, full failure guaranteed |
-| S5 | S5 | 1.0 | 1.0 | Absorbing terminal state |
+| S0 | S1 | 0.8 | 0.3 | Operator misses initial abnormal state (Valve A open) |
+| S1 | S2 | 0.9 | 0.4 | Auto-trip causes signal overload; intervention helps reassess |
+| S2 | S3 | 0.95 | 0.5 | Valve B status misjudged unless checked |
+| S3 | S4 | 0.9 | 0.4 | Water level misunderstood; corrective cues missed |
+| S4 | S5 | 1.0 | 0.8 | Final critical error before meltdown |
+| S5 | S5 | 1.0 | 1.0 | Absorbing terminal state (core damage) |
 
 ### 💸 Cost Structure
-Each state-action pair has an immediate cost, approximating severity of misinterpretation and cost of intervention.
+Each state-action pair has an immediate cost, approximating severity of misinterpretation and cost of intervention. These costs act as a proxy for system risk—higher costs imply greater hazard if misjudgment continues unchecked.
 
 | State | Cost (no_intervention) | Cost (intervene) | Rationale |
 |-------|-------------------------|------------------|-----------|
-| S0 | 0.0 | 0.2 | Very early, cheap to correct |
-| S1 | 0.0 | 0.2 | Still relatively safe to intervene |
-| S2 | 1.0 | 0.3 | Moderate cost to catch cooling loss early |
-| S3 | 2.0 | 0.5 | Getting worse, water level dropping |
-| S4 | 5.0 | 1.0 | Onset of critical state (vibration) |
-| S5 | 20.0 | 15.0 | Fuel damage, severe penalty |
+| S0 | 0.0 | 0.2 | Initial belief error; minimal consequence if caught early |
+| S1 | 0.0 | 0.2 | Auto-trip stage; information overload begins, still easy to intervene |
+| S2 | 1.0 | 0.3 | Early misjudgment of cooling issue; intervention begins to matter |
+| S3 | 2.0 | 0.5 | Dangerous phase: operator assumes overfill despite leak |
+| S4 | 5.0 | 1.0 | Critical signals emerge (pump vibration); late intervention is costly but useful |
+| S5 | 20.0 | 15.0 | Core damage or meltdown; huge risk even if intervention is attempted |
 
-All values are scaled arbitrarily to reflect cost gradients and encourage early intervention while still penalizing late-stage misjudgment.
+---
+
+## 🔍 Interpretation of Cost and Risk
+In this simulation, "cost" serves as a proxy for accumulated system risk:
+- **Cost (no_intervention)**: Reflects how risky it is to allow the operator's current misjudgment to persist. It captures the downstream risk amplification that results from failing to intervene.
+- **Cost (intervene)**: Represents the effort or disruption of corrective action at that point. Early intervention costs are low, while later ones increase with complexity or damage already done.
+
+This structure encourages strategic intervention at key judgment points to avoid cascading failures.
 
 ---
 
