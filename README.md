@@ -44,18 +44,18 @@ python analysis.py
 
 ---
 
-## 🧠 Policy Configuration (src/config.py)
+## 🧐 Policy Configuration (src/config.py)
 You can modify the `POLICY` dictionary to control which states trigger interventions.
 
 Example:
 ```python
 POLICY = {
+    "S0": "no_intervention",
     "S1": "no_intervention",
-    "S2": "no_intervention",
-    "S3": "intervene",
-    "S4": "no_intervention",
-    "S5": "intervene",
-    "S6": "no_intervention"  # terminal state
+    "S2": "intervene",
+    "S3": "no_intervention",
+    "S4": "intervene",
+    "S5": "no_intervention"  # terminal state
 }
 ```
 
@@ -77,36 +77,36 @@ The MDP model (`data/tmi_mdp.json`) is inspired by the key decision stages obser
 ### 🔁 States and Meanings
 | State | Description |
 |-------|-------------|
-| S1 | Operator unaware Valve A is open |
-| S2 | Reactor shuts down, new signals appear |
-| S3 | Valve B is stuck open but misjudged as closed |
-| S4 | Water keeps leaking but thought to be too much water |
-| S5 | Auto-injection turned off and pump starts vibrating |
-| S6 | Full cooling failure → core damage (terminal) |
+| S0 | 	Valve A left open, operator assumes it's closed |
+| S1 | Reactor auto-trip; ambiguous signals emerge |
+| S2 | Valve B is stuck open but misjudged as closed |
+| S3 | Cooling water leaking, but operator believes excess water exists |
+| S4 | Auto-injection disabled; pump starts vibrating due to low level |
+| S5 | Full cooling failure → core damage (terminal) |
 
 ### 🔄 Transition Probabilities
 Transitions represent how likely an operator is to move to the next misinterpretation without or with intervention.
 
 | From | To | P (no_intervention) | P (intervene) | Notes |
 |------|----|----------------------|---------------|-------|
-| S1 | S2 | 0.8 | 0.3 | Without intervention, misjudgment persists (80%) |
-| S2 | S3 | 0.9 | 0.4 | High forward progression without reassessment |
-| S3 | S4 | 0.95 | 0.5 | Nearly always misinterpreted without help |
-| S4 | S5 | 0.9 | 0.4 | Assumes system is overfilled, fails to reassess |
-| S5 | S6 | 1.0 | 0.8 | If not stopped, full failure guaranteed |
-| S6 | S6 | 1.0 | 1.0 | Absorbing terminal state |
+| S0 | S1 | 0.8 | 0.3 | Without intervention, misjudgment persists (80%) |
+| S1 | S2 | 0.9 | 0.4 | High forward progression without reassessment |
+| S2 | S3 | 0.95 | 0.5 | Nearly always misinterpreted without help |
+| S3 | S4 | 0.9 | 0.4 | Assumes system is overfilled, fails to reassess |
+| S4 | S5 | 1.0 | 0.8 | If not stopped, full failure guaranteed |
+| S5 | S5 | 1.0 | 1.0 | Absorbing terminal state |
 
 ### 💸 Cost Structure
 Each state-action pair has an immediate cost, approximating severity of misinterpretation and cost of intervention.
 
 | State | Cost (no_intervention) | Cost (intervene) | Rationale |
 |-------|-------------------------|------------------|-----------|
-| S1 | 0.0 | 0.2 | Very early, cheap to correct |
-| S2 | 0.0 | 0.2 | Still relatively safe to intervene |
-| S3 | 1.0 | 0.3 | Moderate cost to catch cooling loss early |
-| S4 | 2.0 | 0.5 | Getting worse, water level dropping |
-| S5 | 5.0 | 1.0 | Onset of critical state (vibration) |
-| S6 | 20.0 | 15.0 | Fuel damage, severe penalty |
+| S0 | 0.0 | 0.2 | Very early, cheap to correct |
+| S1 | 0.0 | 0.2 | Still relatively safe to intervene |
+| S2 | 1.0 | 0.3 | Moderate cost to catch cooling loss early |
+| S3 | 2.0 | 0.5 | Getting worse, water level dropping |
+| S4 | 5.0 | 1.0 | Onset of critical state (vibration) |
+| S5 | 20.0 | 15.0 | Fuel damage, severe penalty |
 
 All values are scaled arbitrarily to reflect cost gradients and encourage early intervention while still penalizing late-stage misjudgment.
 
