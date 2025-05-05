@@ -4,25 +4,30 @@ from src.mdp import load_mdp
 from src.utils import sample_next_state, get_action_from_policy, log_run_result
 from src.config import NUM_RUNS, MAX_STEPS, POLICY
 
-
 def run_simulation(mdp, policy_fn, num_runs=NUM_RUNS, max_steps=MAX_STEPS):
     results = []
     for run in range(num_runs):
         state = mdp['initial_state']
         total_cost = 0
+        trajectory = [state]
+        actions = []
 
         for t in range(max_steps):
             action = policy_fn(state)
             cost = mdp['costs'][state][action]
             total_cost += cost
+            actions.append(action)
 
             if state in mdp['terminal_states']:
                 break
 
             state = sample_next_state(state, action, mdp['transitions'])
+            trajectory.append(state)
 
         results.append({
             'run': run,
+            'trajectory': trajectory,
+            'actions': actions,
             'final_state': state,
             'total_cost': total_cost
         })

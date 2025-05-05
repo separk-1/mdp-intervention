@@ -71,4 +71,28 @@ It is suitable for applications in nuclear safety analysis, accident investigati
 
 ---
 
+## ⚙️ Model Design Rationale
+The MDP model in `data/tmi_mdp.json` is designed based on the actual progression of the 1979 Three Mile Island accident:
+
+| MDP State | Actual Situation | Operator Misunderstanding | Why It Happened |
+|-----------|------------------|----------------------------|-----------------|
+| S1 | Valve A left open | Thought it was closed | Maintenance info not passed, indicator hidden |
+| S2 | Reactor shuts down | - | Normal transition state |
+| S3 | Valve B stuck open | Thought it was closed | Status indicator obscured |
+| S4 | Cooling water leaking | Thought there was too much water | Misleading sensor (pressurizer level) |
+| S5 | Turned off auto-cooling | Believed pump might break | Misinterpreted vibration as fault |
+| S6 | Cooling fully stops → meltdown | - | Terminal state |
+
+**Transition Probabilities**:
+- Without intervention, error propagation is more likely (e.g., S3 → S4 = 95%)
+- With intervention, operators reassess state (e.g., S3 → S4 drops to 50%)
+
+**Cost Design**:
+- Early-stage intervention is cheap and effective (e.g., S3 intervene = 0.3)
+- Late-stage errors are costly (e.g., S6 no_intervention = 20)
+
+This structure reflects how early misunderstandings escalate into catastrophic failures if not corrected in time.
+
+---
+
 Contact: seongeunpark@cmu.edu
