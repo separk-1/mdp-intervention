@@ -1,13 +1,6 @@
-# Simulation configuration
+# config.py
 NUM_RUNS = 10000
 MAX_STEPS = 10
-
-# Example policy: intervene only at S3 and S5
-POLICY = {
-    "S1": "no_intervention",
-    "S2": "no_intervention",
-    "S3": "intervene",
-    "S4": "no_intervention",
-    "S5": "intervene",
-    "S6": "no_intervention"  # terminal state
-}
+MAX_TOTAL_INTERVENTION_COST = 1.5
+STATES = ["S0", "S1", "S2", "S3", "S4"]
+ACTIONS = ["no_intervention", "intervene"]

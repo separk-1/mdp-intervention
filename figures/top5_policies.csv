@@ -1,0 +1,6 @@
+policy_id,avg_total_cost,intervention_cost,policy
+21,6.563730000000154,1.3,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}"
+19,7.19818999999997,1.1,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}"
+20,8.59791000000008,0.8,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}"
+16,8.861950000000057,0.8,"{'S0': 'intervene', 'S1': 'no_intervention', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}"
+18,9.369369999999993,0.6,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}"

@@ -1,0 +1,23 @@
+policy_id,avg_total_cost,intervention_cost,policy,VoI,VoI_per_cost
+21,6.563730000000154,1.3,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",21.699369999999846,16.691823076922958
+19,7.19818999999997,1.1,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",21.064910000000033,19.14991818181821
+20,8.59791000000008,0.8,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",19.66518999999992,24.5814874999999
+16,8.861950000000057,0.8,"{'S0': 'intervene', 'S1': 'no_intervention', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",19.401149999999944,24.25143749999993
+18,9.369369999999993,0.6,"{'S0': 'intervene', 'S1': 'intervene', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",18.89373000000001,31.489550000000015
+13,9.642520000000008,0.6,"{'S0': 'intervene', 'S1': 'no_intervention', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",18.620579999999993,31.03429999999999
+17,9.911070000000032,1.3,"{'S0': 'intervene', 'S1': 'no_intervention', 'S2': 'intervene', 'S3': 'intervene', 'S4': 'no_intervention', 'S5': 'no_intervention'}",18.35202999999997,14.116946153846131
+14,10.503700000000054,1.1,"{'S0': 'intervene', 'S1': 'no_intervention', 'S2': 'no_intervention', 'S3': 'intervene', 'S4': 'no_intervention', 'S5': 'no_intervention'}",17.75939999999995,16.144909090909042
+15,11.555889999999996,0.3,"{'S0': 'intervene', 'S1': 'no_intervention', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",16.707210000000003,55.690700000000014
+12,12.610620000000043,0.1,"{'S0': 'intervene', 'S1': 'no_intervention', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",15.652479999999958,156.52479999999957
+11,18.54384000000112,1.2,"{'S0': 'no_intervention', 'S1': 'intervene', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",9.719259999998883,8.099383333332403
+8,19.9518,1.0,"{'S0': 'no_intervention', 'S1': 'intervene', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",8.311300000000003,8.311300000000003
+3,21.72465,1.5,"{'S0': 'no_intervention', 'S1': 'no_intervention', 'S2': 'no_intervention', 'S3': 'intervene', 'S4': 'intervene', 'S5': 'no_intervention'}",6.538450000000001,4.358966666666667
+9,22.35095,1.5,"{'S0': 'no_intervention', 'S1': 'intervene', 'S2': 'no_intervention', 'S3': 'intervene', 'S4': 'no_intervention', 'S5': 'no_intervention'}",5.9121500000000005,3.941433333333334
+5,22.563130000002456,0.7,"{'S0': 'no_intervention', 'S1': 'no_intervention', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",5.6999699999975455,8.142814285710779
+10,23.621150000002583,0.7,"{'S0': 'no_intervention', 'S1': 'intervene', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",4.6419499999974185,6.631357142853456
+1,23.64785,0.5,"{'S0': 'no_intervention', 'S1': 'no_intervention', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'intervene', 'S5': 'no_intervention'}",4.615250000000003,9.230500000000006
+7,24.78075,0.5,"{'S0': 'no_intervention', 'S1': 'intervene', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",3.4823500000000003,6.964700000000001
+6,25.862780000003177,1.2,"{'S0': 'no_intervention', 'S1': 'no_intervention', 'S2': 'intervene', 'S3': 'intervene', 'S4': 'no_intervention', 'S5': 'no_intervention'}",2.4003199999968245,2.0002666666640208
+2,26.9439,1.0,"{'S0': 'no_intervention', 'S1': 'no_intervention', 'S2': 'no_intervention', 'S3': 'intervene', 'S4': 'no_intervention', 'S5': 'no_intervention'}",1.3192000000000021,1.3192000000000021
+4,27.386240000003657,0.2,"{'S0': 'no_intervention', 'S1': 'no_intervention', 'S2': 'intervene', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",0.8768599999963449,4.3842999999817245
+0,28.2631,0.0,"{'S0': 'no_intervention', 'S1': 'no_intervention', 'S2': 'no_intervention', 'S3': 'no_intervention', 'S4': 'no_intervention', 'S5': 'no_intervention'}",0.0,0.0

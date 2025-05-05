@@ -1,0 +1,243 @@
+[
+  {
+    "policy_id": 0,
+    "intervene_states": [],
+    "avg_total_cost": 28.2631,
+    "intervention_cost": 0.0,
+    "VoI": 0.0,
+    "VoI_per_cost": 0.0
+  },
+  {
+    "policy_id": 1,
+    "intervene_states": [
+      "S4"
+    ],
+    "avg_total_cost": 23.64785,
+    "intervention_cost": 0.5,
+    "VoI": 4.615250000000003,
+    "VoI_per_cost": 9.230500000000006
+  },
+  {
+    "policy_id": 2,
+    "intervene_states": [
+      "S3"
+    ],
+    "avg_total_cost": 26.9439,
+    "intervention_cost": 1.0,
+    "VoI": 1.3192000000000021,
+    "VoI_per_cost": 1.3192000000000021
+  },
+  {
+    "policy_id": 3,
+    "intervene_states": [
+      "S3",
+      "S4"
+    ],
+    "avg_total_cost": 21.72465,
+    "intervention_cost": 1.5,
+    "VoI": 6.538450000000001,
+    "VoI_per_cost": 4.358966666666667
+  },
+  {
+    "policy_id": 4,
+    "intervene_states": [
+      "S2"
+    ],
+    "avg_total_cost": 27.386240000003657,
+    "intervention_cost": 0.2,
+    "VoI": 0.8768599999963449,
+    "VoI_per_cost": 4.3842999999817245
+  },
+  {
+    "policy_id": 5,
+    "intervene_states": [
+      "S2",
+      "S4"
+    ],
+    "avg_total_cost": 22.563130000002456,
+    "intervention_cost": 0.7,
+    "VoI": 5.6999699999975455,
+    "VoI_per_cost": 8.142814285710779
+  },
+  {
+    "policy_id": 6,
+    "intervene_states": [
+      "S2",
+      "S3"
+    ],
+    "avg_total_cost": 25.862780000003177,
+    "intervention_cost": 1.2,
+    "VoI": 2.4003199999968245,
+    "VoI_per_cost": 2.0002666666640208
+  },
+  {
+    "policy_id": 7,
+    "intervene_states": [
+      "S1"
+    ],
+    "avg_total_cost": 24.78075,
+    "intervention_cost": 0.5,
+    "VoI": 3.4823500000000003,
+    "VoI_per_cost": 6.964700000000001
+  },
+  {
+    "policy_id": 8,
+    "intervene_states": [
+      "S1",
+      "S4"
+    ],
+    "avg_total_cost": 19.9518,
+    "intervention_cost": 1.0,
+    "VoI": 8.311300000000003,
+    "VoI_per_cost": 8.311300000000003
+  },
+  {
+    "policy_id": 9,
+    "intervene_states": [
+      "S1",
+      "S3"
+    ],
+    "avg_total_cost": 22.35095,
+    "intervention_cost": 1.5,
+    "VoI": 5.9121500000000005,
+    "VoI_per_cost": 3.941433333333334
+  },
+  {
+    "policy_id": 10,
+    "intervene_states": [
+      "S1",
+      "S2"
+    ],
+    "avg_total_cost": 23.621150000002583,
+    "intervention_cost": 0.7,
+    "VoI": 4.6419499999974185,
+    "VoI_per_cost": 6.631357142853456
+  },
+  {
+    "policy_id": 11,
+    "intervene_states": [
+      "S1",
+      "S2",
+      "S4"
+    ],
+    "avg_total_cost": 18.543840000001122,
+    "intervention_cost": 1.2,
+    "VoI": 9.71925999999888,
+    "VoI_per_cost": 8.0993833333324
+  },
+  {
+    "policy_id": 12,
+    "intervene_states": [
+      "S0"
+    ],
+    "avg_total_cost": 12.610620000000045,
+    "intervention_cost": 0.1,
+    "VoI": 15.652479999999956,
+    "VoI_per_cost": 156.52479999999954
+  },
+  {
+    "policy_id": 13,
+    "intervene_states": [
+      "S0",
+      "S4"
+    ],
+    "avg_total_cost": 9.642520000000008,
+    "intervention_cost": 0.6,
+    "VoI": 18.620579999999993,
+    "VoI_per_cost": 31.03429999999999
+  },
+  {
+    "policy_id": 14,
+    "intervene_states": [
+      "S0",
+      "S3"
+    ],
+    "avg_total_cost": 10.503700000000054,
+    "intervention_cost": 1.1,
+    "VoI": 17.75939999999995,
+    "VoI_per_cost": 16.144909090909042
+  },
+  {
+    "policy_id": 15,
+    "intervene_states": [
+      "S0",
+      "S2"
+    ],
+    "avg_total_cost": 11.555889999999996,
+    "intervention_cost": 0.30000000000000004,
+    "VoI": 16.707210000000003,
+    "VoI_per_cost": 55.69070000000001
+  },
+  {
+    "policy_id": 16,
+    "intervene_states": [
+      "S0",
+      "S2",
+      "S4"
+    ],
+    "avg_total_cost": 8.861950000000057,
+    "intervention_cost": 0.8,
+    "VoI": 19.401149999999944,
+    "VoI_per_cost": 24.25143749999993
+  },
+  {
+    "policy_id": 17,
+    "intervene_states": [
+      "S0",
+      "S2",
+      "S3"
+    ],
+    "avg_total_cost": 9.911070000000032,
+    "intervention_cost": 1.3,
+    "VoI": 18.35202999999997,
+    "VoI_per_cost": 14.116946153846131
+  },
+  {
+    "policy_id": 18,
+    "intervene_states": [
+      "S0",
+      "S1"
+    ],
+    "avg_total_cost": 9.369369999999991,
+    "intervention_cost": 0.6,
+    "VoI": 18.893730000000012,
+    "VoI_per_cost": 31.489550000000023
+  },
+  {
+    "policy_id": 19,
+    "intervene_states": [
+      "S0",
+      "S1",
+      "S4"
+    ],
+    "avg_total_cost": 7.19818999999997,
+    "intervention_cost": 1.1,
+    "VoI": 21.064910000000033,
+    "VoI_per_cost": 19.14991818181821
+  },
+  {
+    "policy_id": 20,
+    "intervene_states": [
+      "S0",
+      "S1",
+      "S2"
+    ],
+    "avg_total_cost": 8.59791000000008,
+    "intervention_cost": 0.8,
+    "VoI": 19.66518999999992,
+    "VoI_per_cost": 24.5814874999999
+  },
+  {
+    "policy_id": 21,
+    "intervene_states": [
+      "S0",
+      "S1",
+      "S2",
+      "S4"
+    ],
+    "avg_total_cost": 6.563730000000154,
+    "intervention_cost": 1.3,
+    "VoI": 21.699369999999846,
+    "VoI_per_cost": 16.691823076922958
+  }
+]

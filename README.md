@@ -7,18 +7,26 @@ This repository simulates how decision errors propagate in a high-risk system li
 ## 🔧 Project Structure
 ```
 MDP-INTERVENTION/
-├── data/               # MDP model JSON files
-│   └── tmi_mdp.json
-├── results/            # Output of simulation runs
-│   └── run1_result.json
-├── src/                # Core simulation source code
-│   ├── mdp.py          # MDP loader
-│   ├── utils.py        # Helpers for transition, policy, logging
-│   └── config.py       # Simulation configs and policies
-├── figures/            # Saved plots from analysis (auto-generated)
-├──  simulate.py        # Main simulation runner
-├── analysis.py         # Visualization and post-analysis script
-├── requirements.txt    # Python package requirements
+├── data/                  # MDP model JSON and generated policy list
+│   ├── tmi_mdp.json       # MDP states, transitions, costs
+│   └── policy_list.json   # All policies and intervention costs
+├── results/               # Output of simulation runs
+│   ├── policy_XX.json     # Result of individual policy simulations
+│   ├── summary.csv        # Summary table with total cost and VoI
+│   ├── top5_policies.csv      # Cost-optimal policies
+│   ├── top_voi_per_cost.csv  # VoI-efficiency optimal policies
+│   └── summary_with_voi.csv  # Full policy summary with VoI fields
+├── src/                   # Core simulation source code
+│   ├── mdp.py             # MDP loader
+│   ├── utils.py           # Helpers for transition, policy, logging
+│   ├── config.py          # General constants (e.g. run count)
+│   └── generate_policies.py # Exhaustive policy generator by cost
+├── 1_generate_policies.py    # Run this to create full policy set
+├── 2_simulate_all.py         # Run this to simulate every policy
+├── 3_add_voi_to_metadata.py  # Annotate metadata with VoI
+├── 4_analysis_all.py         # Analyze policies and visualize results
+├── figures/                  # Saved plots (auto-generated)
+├── requirements.txt          # Python package requirements
 └── README.md
 ```
 
@@ -30,49 +38,50 @@ MDP-INTERVENTION/
 pip install -r requirements.txt
 ```
 
-### 2. Run simulation
+### 2. Generate policies
 ```bash
-python src/simulate.py
+python 1_generate_policies.py
 ```
-- Outputs will be saved to `results/run1_result.json`
+- Produces `data/policy_list.json` with all possible intervention policies and their costs.
 
-### 3. Analyze results (generate plots)
+### 3. Run simulations on all policies
 ```bash
-python analysis.py
+python 2_simulate_all.py
 ```
-- Images will be saved in the `figures/` directory
+- Saves each result to `results/policy_XX.json`
+- Also saves summary statistics to `results/summary.csv`
 
----
-
-## 🤔 Policy Configuration (src/config.py)
-You can modify the `POLICY` dictionary to control which states trigger interventions.
-
-Example:
-```python
-POLICY = {
-    "S0": "no_intervention",
-    "S1": "no_intervention",
-    "S2": "intervene",
-    "S3": "no_intervention",
-    "S4": "intervene",
-    "S5": "no_intervention"  # terminal state
-}
+### 4. Add VoI to metadata
+```bash
+python 3_add_voi_to_metadata.py
 ```
+- Calculates Value of Information (VoI) for each policy
+- Updates the metadata with VoI, VoI per cost, and intervention states
+
+### 5. Analyze results (VoI, Pareto, Heatmap)
+```bash
+python 4_analysis_all.py
+```
+- Generates plots and saves them to `figures/`
+- Includes:
+  - 📈 Total cost vs intervention cost
+  - 🔥 VoI heatmap by state
+  - 💠 Pareto front for VoI/cost tradeoff
 
 ---
 
-## 📊 Purpose and Use Cases
-This simulation framework supports:
-- Modeling error propagation in decision sequences
-- Evaluating the impact of interventions
-- Quantifying Value of Information (VoI) for risk mitigation
+## 🎯 Objective
+This framework helps answer:
+- Which operator states are most impactful to intervene?
+- How does total cost vary across intervention strategies?
+- What is the Value of Information (VoI) for each intervention?
+- What are cost-effective and risk-effective intervention policies?
 
-It is suitable for applications in nuclear safety analysis, accident investigation, and human-reliability modeling.
+It is designed for nuclear safety studies, accident response simulation, and human reliability modeling.
 
 ---
 
-## ⚙️ Model Design Rationale
-The MDP model (`data/tmi_mdp.json`) is inspired by the key decision stages observed in the 1979 Three Mile Island accident. Each state represents a point of operator judgment, and transitions reflect the likelihood of advancing (or repeating) based on the operator's understanding and whether intervention occurred.
+## ⚙️ MDP Model Design
 
 ### 🔁 States and Meanings
 | State | Description |
@@ -85,37 +94,48 @@ The MDP model (`data/tmi_mdp.json`) is inspired by the key decision stages obser
 | S5 | Full cooling failure → core damage (terminal) |
 
 ### 🔄 Transition Probabilities
-Transitions represent how likely an operator is to move to the next misinterpretation without or with intervention.
+Transitions reflect how likely the operator is to progress to the next state (i.e., next misjudgment) depending on whether intervention occurred.
 
 | From | To | P (no_intervention) | P (intervene) | Notes |
 |------|----|----------------------|---------------|-------|
-| S0 | S1 | 0.8 | 0.3 | Operator misses initial abnormal state (Valve A open) |
-| S1 | S2 | 0.9 | 0.4 | Auto-trip causes signal overload; intervention helps reassess |
-| S2 | S3 | 0.95 | 0.5 | Valve B status misjudged unless checked |
-| S3 | S4 | 0.9 | 0.4 | Water level misunderstood; corrective cues missed |
-| S4 | S5 | 1.0 | 0.8 | Final critical error before meltdown |
+| S0 | S1 | 0.8 | 0.1 | Operator misses initial abnormal state (Valve A open) |
+| S1 | S2 | 0.9 | 0.3 | Auto-trip causes signal overload; intervention helps reassess |
+| S2 | S3 | 0.95 | 0.8 | Valve B stuck open physically; intervention has limited effect |
+| S3 | S4 | 0.9 | 0.5 | Water level misunderstood due to poor training; harder to fix |
+| S4 | S5 | 1.0 | 0.6 | Final critical error before meltdown; fast action can help |
 | S5 | S5 | 1.0 | 1.0 | Absorbing terminal state (core damage) |
 
 ### 💸 Cost Structure
-Each state-action pair has an immediate cost, approximating severity of misinterpretation and cost of intervention. These costs act as a proxy for system risk—higher costs imply greater hazard if misjudgment continues unchecked.
+Each state-action pair has a cost. Higher cost = higher system risk or difficulty of intervention.
 
 | State | Cost (no_intervention) | Cost (intervene) | Rationale |
 |-------|-------------------------|------------------|-----------|
-| S0 | 0.0 | 0.2 | Initial belief error; minimal consequence if caught early |
-| S1 | 0.0 | 0.2 | Auto-trip stage; information overload begins, still easy to intervene |
-| S2 | 1.0 | 0.3 | Early misjudgment of cooling issue; intervention begins to matter |
-| S3 | 2.0 | 0.5 | Dangerous phase: operator assumes overfill despite leak |
-| S4 | 5.0 | 1.0 | Critical signals emerge (pump vibration); late intervention is costly but useful |
-| S5 | 20.0 | 15.0 | Core damage or meltdown; huge risk even if intervention is attempted |
+| S0 | 0.0 | 0.1 | Early misjudgment; easy to correct |
+| S1 | 0.0 | 0.5 | Requires more resources to verify and interpret signals |
+| S2 | 1.0 | 0.2 | Re-checking valve B is low-cost, but impact is limited |
+| S3 | 2.0 | 1.0 | Training mismatch; intervention is expensive but important |
+| S4 | 5.0 | 0.5 | Pump vibration is urgent; intervention is effective and cheap |
+| S5 | 20.0 | 15.0 | Catastrophic failure; intervention is possible but costly |
 
-> 🔍 **Note on Intervention Costs:**
-> 
-> Intervention costs increase in later states not only due to higher system risk, but also due to practical challenges in executing corrective actions under crisis:
-> - ⚙️ **Complexity**: Later interventions require more invasive and multi-step actions.
-> - ⏱️ **Time Pressure**: Decisions must be made rapidly under stress, increasing the cost of coordination.
-> - 💡 **Delayed Response Burden**: Reversing damage is harder and more expensive once system degradation has progressed.
-> 
-> This reflects real-world emergency operations, where early correction is cheaper, but delayed action—even when successful—comes with significant overhead.
+> 📌 **Note**: Total cost = (intervention cost) + (simulated consequence cost)
+
+> 🔍 **Why later interventions cost more?**
+> - 🔁 Later states represent crisis moments where mistakes compound
+> - ⚙️ Actions require more time, coordination, or system override
+> - 🧠 Human factors like stress and ambiguity make decision harder
+> - ⏱️ Correcting deep errors comes with a higher price tag
+
+---
+
+## 📈 Analysis Output
+Running `4_analysis_all.py` provides:
+- 🔹 **Cost-efficiency ranking**: which policies reduce risk with least intervention
+- 🔸 **VoI per state**: visualized as a heatmap
+- 💠 **Pareto frontier**: visualize tradeoff between cost and VoI
+- 📊 **Policy-wise intervention breakdown**: where each policy intervenes
+
+> 📁 Output saved to `figures/`
+> 📄 Top policies saved to CSVs: `summary_with_voi.csv`, `top5_policies.csv`, `top_voi_per_cost.csv`
 
 ---
 
