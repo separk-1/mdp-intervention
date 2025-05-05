@@ -44,7 +44,7 @@ python analysis.py
 
 ---
 
-## 🧐 Policy Configuration (src/config.py)
+## 🤔 Policy Configuration (src/config.py)
 You can modify the `POLICY` dictionary to control which states trigger interventions.
 
 Example:
@@ -77,9 +77,9 @@ The MDP model (`data/tmi_mdp.json`) is inspired by the key decision stages obser
 ### 🔁 States and Meanings
 | State | Description |
 |-------|-------------|
-| S0 | 	Valve A left open, operator assumes it's closed |
-| S1 | Reactor auto-trip; ambiguous signals emerge |
-| S2 | Valve B is stuck open but misjudged as closed |
+| S0 | Valve A left open, operator assumes it's closed |
+| S1 | Reactor auto-trip |
+| S2 | Ambiguous signals emerge; Valve B misread as closed |
 | S3 | Cooling water leaking, but operator believes excess water exists |
 | S4 | Auto-injection disabled; pump starts vibrating due to low level |
 | S5 | Full cooling failure → core damage (terminal) |
@@ -108,14 +108,14 @@ Each state-action pair has an immediate cost, approximating severity of misinter
 | S4 | 5.0 | 1.0 | Critical signals emerge (pump vibration); late intervention is costly but useful |
 | S5 | 20.0 | 15.0 | Core damage or meltdown; huge risk even if intervention is attempted |
 
----
-
-## 🔍 Interpretation of Cost and Risk
-In this simulation, "cost" serves as a proxy for accumulated system risk:
-- **Cost (no_intervention)**: Reflects how risky it is to allow the operator's current misjudgment to persist. It captures the downstream risk amplification that results from failing to intervene.
-- **Cost (intervene)**: Represents the effort or disruption of corrective action at that point. Early intervention costs are low, while later ones increase with complexity or damage already done.
-
-This structure encourages strategic intervention at key judgment points to avoid cascading failures.
+> 🔍 **Note on Intervention Costs:**
+> 
+> Intervention costs increase in later states not only due to higher system risk, but also due to practical challenges in executing corrective actions under crisis:
+> - ⚙️ **Complexity**: Later interventions require more invasive and multi-step actions.
+> - ⏱️ **Time Pressure**: Decisions must be made rapidly under stress, increasing the cost of coordination.
+> - 💡 **Delayed Response Burden**: Reversing damage is harder and more expensive once system degradation has progressed.
+> 
+> This reflects real-world emergency operations, where early correction is cheaper, but delayed action—even when successful—comes with significant overhead.
 
 ---
 
