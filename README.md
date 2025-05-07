@@ -74,6 +74,62 @@ Each decision point is a state. An intervention can be applied or skipped.
 
 ---
 
+
+## 🔁 States and Meanings
+
+Each state in the MDP corresponds to a critical judgment point during the Three Mile Island (TMI) accident. Misjudgments at these points can lead to error propagation if not corrected through intervention.
+
+| State | Description |
+|-------|-------------|
+| S0 | Valve A left open; operator assumes it's closed |
+| S1 | Reactor automatically trips, creating ambiguity in control signals |
+| S2 | Valve B fails open, but is misjudged as closed due to faulty readings |
+| S3 | Coolant leakage misinterpreted as high coolant level |
+| S4 | Pump vibration misjudged as a fault, leading to pump shutdown |
+| S5 | Complete cooling failure and core damage (terminal absorbing state) |
+
+## 🔣 Transition Probabilities
+
+Each state transitions to the next depending on whether an intervention occurs. The following probabilities define this dynamic:
+
+- **P(Fail)**: Probability the system escalates to the next error state.
+- **P(Success)**: Probability of recovering to a safe terminal state.
+- **P(Stag.)**: Probability the system stays in the same state.
+
+Example for S0:
+- Without intervention: P(Fail) = 0.63, P(Success) = 0.27, P(Stag.) = 0.10
+- With intervention: P(Fail) = 0.09, P(Success) = 0.81, P(Stag.) = 0.10
+
+## 💡 MDP Formulation
+
+This decision-making process is modeled as a Markov Decision Process (MDP):
+
+- **States**: $S = \{S_0, S_1, \dots, S_5\}$
+- **Actions**: $A = \{\text{no\_intervention}, \text{intervene}\}$
+- **Transition Function**: $T(s, a, s') = P(s' | s, a)$
+- **Cost Function**: $C(s, a)$ (intervention cost at each state)
+- **Policy**: $\pi: S \rightarrow A$
+
+### Value of Information (VoI)
+We quantify the impact of interventions using VoI:
+
+$$
+\text{VoI}(\pi) = \mathbb{E}[\text{Total Cost} \mid \pi_0] - \mathbb{E}[\text{Total Cost} \mid \pi]
+$$
+
+Where $\pi_0$ is the baseline policy with no intervention.
+
+### Efficiency Metric
+To compare cost-effectiveness, we compute:
+
+$$
+\text{VoI per Cost}(\pi) = \frac{\text{VoI}(\pi)}{\sum_{s \in S: \pi(s) = \text{intervene}} C(s, \text{intervene})}
+$$
+
+
+
+---
+
 ## 🔄 Transition & Cost Table
 
 | State | Description | Intervene | Cost | P(Fail) | P(Success) | P(Stag.) |
@@ -127,7 +183,7 @@ All saved to `/figures/` upon running `4_analysis_all.py`.
 - MDP assumes known operator state; VoI here reflects value of correction.
 - In reality, operators work under uncertainty.
 - Upcoming extension: **POMDP formulation** to model hidden states and belief dynamics.
-- VoI will then represent the benefit of resolving uncertainty, not just fixing known misjudgments.
+- VoI will then represent the benefit of resolving uncertainty—not just fixing known misjudgments.
 
 ---
 
@@ -136,3 +192,4 @@ All saved to `/figures/` upon running `4_analysis_all.py`.
 **Seongeun Park**  
 📧 seongeup@andrew.cmu.edu  
 🔗 [GitHub Repository](https://github.com/separk-1/mdp-intervention)
+
