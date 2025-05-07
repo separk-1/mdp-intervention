@@ -3,6 +3,7 @@ import os
 from src.mdp import load_mdp
 from src.utils import sample_next_state, get_action_from_policy, log_run_result
 from pathlib import Path
+import pandas as pd
 
 # Simulation config
 NUM_RUNS = 10000
@@ -17,6 +18,13 @@ RESULTS_DIR = "results"
 mdp = load_mdp(MDP_PATH)
 with open(POLICY_LIST_PATH, "r") as f:
     policy_list = json.load(f)
+
+# Add dummy cost for S_success if not defined
+if "S_success" not in mdp["costs"]:
+    mdp["costs"]["S_success"] = {
+        "no_intervention": 0.0,
+        "intervene": 0.0
+    }
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
@@ -57,10 +65,14 @@ for i, item in enumerate(policy_list):
     log_run_result(sim_results, output_path=out_file)
 
     avg_cost = sum(r['total_cost'] for r in sim_results) / NUM_RUNS
+    success_count = sum(1 for r in sim_results if r["final_state"] == "S_success")
+    success_rate = success_count / NUM_RUNS
+
     summary_rows.append({
         "policy_id": i,
         "avg_total_cost": avg_cost,
         "intervention_cost": total_intervention_cost,
+        "success_rate": success_rate,
         "policy": policy
     })
 
@@ -72,16 +84,15 @@ with open(metadata_path, "w") as f:
             "policy_id": row["policy_id"],
             "intervene_states": [k for k, v in row["policy"].items() if v == "intervene"],
             "avg_total_cost": row["avg_total_cost"],
-            "intervention_cost": row["intervention_cost"]
+            "intervention_cost": row["intervention_cost"],
+            "success_rate": row["success_rate"]
         }
         for row in summary_rows
     ], f, indent=2)
 
 print(f"✅ Metadata saved to {metadata_path}")
 
-
 # Save summary CSV
-import pandas as pd
 df_summary = pd.DataFrame(summary_rows)
 df_summary.to_csv(os.path.join(RESULTS_DIR, "summary.csv"), index=False)
 

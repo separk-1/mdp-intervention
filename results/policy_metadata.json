@@ -2,8 +2,9 @@
   {
     "policy_id": 0,
     "intervene_states": [],
-    "avg_total_cost": 28.2631,
+    "avg_total_cost": 11.9861,
     "intervention_cost": 0.0,
+    "success_rate": 0.5982,
     "VoI": 0.0,
     "VoI_per_cost": 0.0
   },
@@ -12,20 +13,22 @@
     "intervene_states": [
       "S4"
     ],
-    "avg_total_cost": 23.64785,
+    "avg_total_cost": 7.7413,
     "intervention_cost": 0.5,
-    "VoI": 4.615250000000003,
-    "VoI_per_cost": 9.230500000000006
+    "success_rate": 0.7056,
+    "VoI": 4.244800000000001,
+    "VoI_per_cost": 8.489600000000001
   },
   {
     "policy_id": 2,
     "intervene_states": [
       "S3"
     ],
-    "avg_total_cost": 26.9439,
+    "avg_total_cost": 6.7598,
     "intervention_cost": 1.0,
-    "VoI": 1.3192000000000021,
-    "VoI_per_cost": 1.3192000000000021
+    "success_rate": 0.7813,
+    "VoI": 5.2263,
+    "VoI_per_cost": 5.2263
   },
   {
     "policy_id": 3,
@@ -33,20 +36,22 @@
       "S3",
       "S4"
     ],
-    "avg_total_cost": 21.72465,
+    "avg_total_cost": 4.45675,
     "intervention_cost": 1.5,
-    "VoI": 6.538450000000001,
-    "VoI_per_cost": 4.358966666666667
+    "success_rate": 0.8397,
+    "VoI": 7.52935,
+    "VoI_per_cost": 5.019566666666667
   },
   {
     "policy_id": 4,
     "intervene_states": [
       "S2"
     ],
-    "avg_total_cost": 27.386240000003657,
+    "avg_total_cost": 9.985019999999075,
     "intervention_cost": 0.2,
-    "VoI": 0.8768599999963449,
-    "VoI_per_cost": 4.3842999999817245
+    "success_rate": 0.6532,
+    "VoI": 2.0010800000009255,
+    "VoI_per_cost": 10.005400000004627
   },
   {
     "policy_id": 5,
@@ -54,10 +59,11 @@
       "S2",
       "S4"
     ],
-    "avg_total_cost": 22.563130000002456,
+    "avg_total_cost": 6.383589999999492,
     "intervention_cost": 0.7,
-    "VoI": 5.6999699999975455,
-    "VoI_per_cost": 8.142814285710779
+    "success_rate": 0.7416,
+    "VoI": 5.602510000000509,
+    "VoI_per_cost": 8.00358571428644
   },
   {
     "policy_id": 6,
@@ -65,20 +71,22 @@
       "S2",
       "S3"
     ],
-    "avg_total_cost": 25.862780000003177,
+    "avg_total_cost": 5.438939999999643,
     "intervention_cost": 1.2,
-    "VoI": 2.4003199999968245,
-    "VoI_per_cost": 2.0002666666640208
+    "success_rate": 0.8115,
+    "VoI": 6.547160000000358,
+    "VoI_per_cost": 5.455966666666965
   },
   {
     "policy_id": 7,
     "intervene_states": [
       "S1"
     ],
-    "avg_total_cost": 24.78075,
+    "avg_total_cost": 3.76415,
     "intervention_cost": 0.5,
-    "VoI": 3.4823500000000003,
-    "VoI_per_cost": 6.964700000000001
+    "success_rate": 0.8873,
+    "VoI": 8.22195,
+    "VoI_per_cost": 16.4439
   },
   {
     "policy_id": 8,
@@ -86,10 +94,11 @@
       "S1",
       "S4"
     ],
-    "avg_total_cost": 19.9518,
+    "avg_total_cost": 2.6206,
     "intervention_cost": 1.0,
-    "VoI": 8.311300000000003,
-    "VoI_per_cost": 8.311300000000003
+    "success_rate": 0.9156,
+    "VoI": 9.3655,
+    "VoI_per_cost": 9.3655
   },
   {
     "policy_id": 9,
@@ -97,10 +106,11 @@
       "S1",
       "S3"
     ],
-    "avg_total_cost": 22.35095,
+    "avg_total_cost": 2.24625,
     "intervention_cost": 1.5,
-    "VoI": 5.9121500000000005,
-    "VoI_per_cost": 3.941433333333334
+    "success_rate": 0.9401,
+    "VoI": 9.73985,
+    "VoI_per_cost": 6.493233333333333
   },
   {
     "policy_id": 10,
@@ -108,10 +118,11 @@
       "S1",
       "S2"
     ],
-    "avg_total_cost": 23.621150000002583,
+    "avg_total_cost": 3.3233700000000748,
     "intervention_cost": 0.7,
-    "VoI": 4.6419499999974185,
-    "VoI_per_cost": 6.631357142853456
+    "success_rate": 0.8986,
+    "VoI": 8.662729999999925,
+    "VoI_per_cost": 12.375328571428465
   },
   {
     "policy_id": 11,
@@ -120,20 +131,22 @@
       "S2",
       "S4"
     ],
-    "avg_total_cost": 18.543840000001122,
+    "avg_total_cost": 2.1814900000000574,
     "intervention_cost": 1.2,
-    "VoI": 9.71925999999888,
-    "VoI_per_cost": 8.0993833333324
+    "success_rate": 0.928,
+    "VoI": 9.804609999999943,
+    "VoI_per_cost": 8.170508333333286
   },
   {
     "policy_id": 12,
     "intervene_states": [
       "S0"
     ],
-    "avg_total_cost": 12.610620000000045,
+    "avg_total_cost": 1.7320900000001447,
     "intervention_cost": 0.1,
-    "VoI": 15.652479999999956,
-    "VoI_per_cost": 156.52479999999954
+    "success_rate": 0.9458,
+    "VoI": 10.254009999999855,
+    "VoI_per_cost": 102.54009999999855
   },
   {
     "policy_id": 13,
@@ -141,10 +154,11 @@
       "S0",
       "S4"
     ],
-    "avg_total_cost": 9.642520000000008,
+    "avg_total_cost": 1.227790000000206,
     "intervention_cost": 0.6,
-    "VoI": 18.620579999999993,
-    "VoI_per_cost": 31.03429999999999
+    "success_rate": 0.9571,
+    "VoI": 10.758309999999794,
+    "VoI_per_cost": 17.930516666666325
   },
   {
     "policy_id": 14,
@@ -152,10 +166,11 @@
       "S0",
       "S3"
     ],
-    "avg_total_cost": 10.503700000000054,
+    "avg_total_cost": 1.04746000000018,
     "intervention_cost": 1.1,
-    "VoI": 17.75939999999995,
-    "VoI_per_cost": 16.144909090909042
+    "success_rate": 0.9697,
+    "VoI": 10.93863999999982,
+    "VoI_per_cost": 9.944218181818018
   },
   {
     "policy_id": 15,
@@ -163,10 +178,11 @@
       "S0",
       "S2"
     ],
-    "avg_total_cost": 11.555889999999996,
+    "avg_total_cost": 1.529220000000217,
     "intervention_cost": 0.30000000000000004,
-    "VoI": 16.707210000000003,
-    "VoI_per_cost": 55.69070000000001
+    "success_rate": 0.9506,
+    "VoI": 10.456879999999783,
+    "VoI_per_cost": 34.85626666666594
   },
   {
     "policy_id": 16,
@@ -175,10 +191,11 @@
       "S2",
       "S4"
     ],
-    "avg_total_cost": 8.861950000000057,
+    "avg_total_cost": 1.0328800000001632,
     "intervention_cost": 0.8,
-    "VoI": 19.401149999999944,
-    "VoI_per_cost": 24.25143749999993
+    "success_rate": 0.9631,
+    "VoI": 10.953219999999837,
+    "VoI_per_cost": 13.691524999999794
   },
   {
     "policy_id": 17,
@@ -187,10 +204,11 @@
       "S2",
       "S3"
     ],
-    "avg_total_cost": 9.911070000000032,
+    "avg_total_cost": 0.9247700000001269,
     "intervention_cost": 1.3,
-    "VoI": 18.35202999999997,
-    "VoI_per_cost": 14.116946153846131
+    "success_rate": 0.9716,
+    "VoI": 11.061329999999874,
+    "VoI_per_cost": 8.508715384615288
   },
   {
     "policy_id": 18,
@@ -198,10 +216,11 @@
       "S0",
       "S1"
     ],
-    "avg_total_cost": 9.369369999999991,
+    "avg_total_cost": 0.6589700000000874,
     "intervention_cost": 0.6,
-    "VoI": 18.893730000000012,
-    "VoI_per_cost": 31.489550000000023
+    "success_rate": 0.9835,
+    "VoI": 11.327129999999913,
+    "VoI_per_cost": 18.878549999999855
   },
   {
     "policy_id": 19,
@@ -210,10 +229,11 @@
       "S1",
       "S4"
     ],
-    "avg_total_cost": 7.19818999999997,
+    "avg_total_cost": 0.4687199999999813,
     "intervention_cost": 1.1,
-    "VoI": 21.064910000000033,
-    "VoI_per_cost": 19.14991818181821
+    "success_rate": 0.9884,
+    "VoI": 11.517380000000019,
+    "VoI_per_cost": 10.470345454545471
   },
   {
     "policy_id": 20,
@@ -222,10 +242,11 @@
       "S1",
       "S2"
     ],
-    "avg_total_cost": 8.59791000000008,
+    "avg_total_cost": 0.5836200000000566,
     "intervention_cost": 0.8,
-    "VoI": 19.66518999999992,
-    "VoI_per_cost": 24.5814874999999
+    "success_rate": 0.9855,
+    "VoI": 11.402479999999944,
+    "VoI_per_cost": 14.253099999999929
   },
   {
     "policy_id": 21,
@@ -235,9 +256,10 @@
       "S2",
       "S4"
     ],
-    "avg_total_cost": 6.563730000000154,
+    "avg_total_cost": 0.4542699999999663,
     "intervention_cost": 1.3,
-    "VoI": 21.699369999999846,
-    "VoI_per_cost": 16.691823076922958
+    "success_rate": 0.9884,
+    "VoI": 11.531830000000035,
+    "VoI_per_cost": 8.870638461538489
   }
 ]

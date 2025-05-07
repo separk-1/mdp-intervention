@@ -14,59 +14,72 @@
   "transitions": {
     "S0": {
       "no_intervention": {
-        "S1": 0.8,
-        "S0": 0.2
+        "S1": 0.63,
+        "S_success": 0.27,
+        "S0": 0.1
       },
       "intervene": {
-        "S1": 0.1,
-        "S0": 0.9
+        "S1": 0.09,
+        "S_success": 0.81,
+        "S0": 0.1
       }
     },
     "S1": {
       "no_intervention": {
-        "S2": 0.9,
+        "S2": 0.7,
+        "S_success": 0.2,
         "S1": 0.1
       },
       "intervene": {
-        "S2": 0.3,
-        "S1": 0.7
+        "S2": 0.2,
+        "S_success": 0.7,
+        "S1": 0.1
       }
     },
     "S2": {
       "no_intervention": {
-        "S3": 0.95,
-        "S2": 0.05
+        "S3": 0.765,
+        "S_success": 0.135,
+        "S2": 0.1
       },
       "intervene": {
-        "S3": 0.8,
-        "S2": 0.2
+        "S3": 0.675,
+        "S_success": 0.225,
+        "S2": 0.1
       }
     },
     "S3": {
       "no_intervention": {
-        "S4": 0.9,
+        "S4": 0.81,
+        "S_success": 0.09,
         "S3": 0.1
       },
       "intervene": {
-        "S4": 0.5,
-        "S3": 0.5
+        "S4": 0.45,
+        "S_success": 0.45,
+        "S3": 0.1
       }
     },
     "S4": {
       "no_intervention": {
-        "S5": 1.0
+        "S5": 0.855,
+        "S_success": 0.045,
+        "S4": 0.1
       },
       "intervene": {
-        "S5": 0.6,
-        "S4": 0.4
+        "S5": 0.63,
+        "S_success": 0.27,
+        "S4": 0.1
       }
     },
     "S5": {
       "no_intervention": {
-        "S5": 1.0
+        "S5": 0.98,
+        "S_success": 0.02
       },
       "intervene": {
-        "S5": 1.0
+        "S5": 0.96,
+        "S_success": 0.04
       }
     }
   },
@@ -94,10 +107,14 @@
     "S5": {
       "no_intervention": 20.0,
       "intervene": 15.0
+    },
+    "S_success": {
+      "no_intervention": 0.0,
+      "intervene": 0.0
     }
   },
   "initial_state": "S0",
   "terminal_states": [
-    "S5"
+    "S5", "S_success"
   ]
 }
