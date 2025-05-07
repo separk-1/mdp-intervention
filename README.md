@@ -1,4 +1,4 @@
-# MDP-INTERVENTION: TMI-Inspired Decision Flow Simulation
+# Modeling Error Propagation in Operator Judgment Flow and Identifying Effective Intervention Points
 
 This repository simulates how judgment errors propagate in a high-risk system, using the Three Mile Island (TMI) accident as a case study. It models human decision-making as a Markov Decision Process (MDP), simulates intervention strategies, and quantifies their risk reduction using Value of Information (VoI).
 
