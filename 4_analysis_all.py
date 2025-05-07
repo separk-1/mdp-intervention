@@ -40,7 +40,7 @@ for _, row in top_policies.iterrows():
              str(int(row["policy_id"])), fontsize=9,
              ha='center', va='bottom', color='black')
 
-plt.title("Policy Comparison: Total Cost vs Intervention Cost", fontsize=14)
+# plt.title("Policy Comparison: Total Cost vs Intervention Cost", fontsize=14)
 plt.xlabel("Total Intervention Cost", fontsize=12)
 plt.ylabel("Average Total Cost (Simulation Outcome)", fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.6)
@@ -67,7 +67,7 @@ voi_matrix = pd.DataFrame([{
 
 plt.figure(figsize=(10, 6))
 sns.heatmap(voi_matrix, annot=True, fmt=".2f", cmap="YlGnBu", cbar_kws={"label": "VoI"})
-plt.title("VoI per State per Policy", fontsize=14)
+# plt.title("VoI per State per Policy", fontsize=14)
 plt.xlabel("Intervention State", fontsize=12)
 plt.ylabel("Policy ID", fontsize=12)
 plt.tight_layout()
@@ -93,7 +93,7 @@ for _, row in top_pareto.iterrows():
              str(int(row["policy_id"])), fontsize=9,
              ha='center', va='bottom', color='black')
 
-plt.title("Pareto Front: Intervention Cost vs VoI", fontsize=14)
+# plt.title("Pareto Front: Intervention Cost vs VoI", fontsize=14)
 plt.xlabel("Intervention Cost", fontsize=12)
 plt.ylabel("VoI (Risk Reduction)", fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.6)

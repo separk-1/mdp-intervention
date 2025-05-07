@@ -1,142 +1,138 @@
 # MDP-INTERVENTION: TMI-Inspired Decision Flow Simulation
 
-This repository simulates how decision errors propagate in a high-risk system like a nuclear power plant, using the Three Mile Island (TMI) accident as a case study. It models the flow of human judgment as a Markov Decision Process (MDP) and quantifies the effect of interventions on system risk using Monte Carlo simulations.
+This repository simulates how judgment errors propagate in a high-risk system, using the Three Mile Island (TMI) accident as a case study. It models human decision-making as a Markov Decision Process (MDP), simulates intervention strategies, and quantifies their risk reduction using Value of Information (VoI).
 
 ---
 
-## 🔧 Project Structure
+## 📁 Project Structure
+
 ```
 MDP-INTERVENTION/
-├── data/                  # MDP model JSON and generated policy list
-│   ├── tmi_mdp.json       # MDP states, transitions, costs
-│   └── policy_list.json   # All policies and intervention costs
-├── results/               # Output of simulation runs
-│   ├── policy_XX.json     # Result of individual policy simulations
-│   ├── summary.csv        # Summary table with total cost and VoI
-│   ├── top5_policies.csv      # Cost-optimal policies
-│   ├── top_voi_per_cost.csv  # VoI-efficiency optimal policies
-│   └── summary_with_voi.csv  # Full policy summary with VoI fields
-├── src/                   # Core simulation source code
-│   ├── mdp.py             # MDP loader
-│   ├── utils.py           # Helpers for transition, policy, logging
-│   ├── config.py          # General constants (e.g. run count)
-│   └── generate_policies.py # Exhaustive policy generator by cost
-├── 1_generate_policies.py    # Run this to create full policy set
-├── 2_simulate_all.py         # Run this to simulate every policy
-├── 3_add_voi_to_metadata.py  # Annotate metadata with VoI
-├── 4_analysis_all.py         # Analyze policies and visualize results
-├── figures/                  # Saved plots (auto-generated)
-├── requirements.txt          # Python package requirements
+├── data/                        # MDP model and intervention policy data
+├── results/                     # Simulation outputs and analysis results
+├── src/                         # Core simulation code
+├── 1_generate_policies.py       # Policy generator
+├── 2_simulate_all.py            # Batch simulator
+├── 3_add_voi_to_metadata.py     # Annotates VoI
+├── 4_analysis_all.py            # Visualization and metrics
+├── figures/                     # Saved output plots
+├── requirements.txt
 └── README.md
 ```
 
 ---
 
 ## ▶️ How to Run
+
 ### 1. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Generate policies
+### 2. Generate all intervention policies
 ```bash
 python 1_generate_policies.py
 ```
-- Produces `data/policy_list.json` with all possible intervention policies and their costs.
 
-### 3. Run simulations on all policies
+### 3. Simulate all policies
 ```bash
 python 2_simulate_all.py
 ```
-- Saves each result to `results/policy_XX.json`
-- Also saves summary statistics to `results/summary.csv`
 
-### 4. Add VoI to metadata
+### 4. Add VoI calculations
 ```bash
 python 3_add_voi_to_metadata.py
 ```
-- Calculates Value of Information (VoI) for each policy
-- Updates the metadata with VoI, VoI per cost, and intervention states
 
-### 5. Analyze results (VoI, Pareto, Heatmap)
+### 5. Analyze and visualize results
 ```bash
 python 4_analysis_all.py
 ```
-- Generates plots and saves them to `figures/`
-- Includes:
-  - 📈 Total cost vs intervention cost
-  - 🔥 VoI heatmap by state
-  - 💠 Pareto front for VoI/cost tradeoff
 
 ---
 
-## 🎯 Objective
-This framework helps answer:
-- Which operator states are most impactful to intervene?
-- How does total cost vary across intervention strategies?
-- What is the Value of Information (VoI) for each intervention?
-- What are cost-effective and risk-effective intervention policies?
+## 🧠 Model Assumptions
 
-It is designed for nuclear safety studies, accident response simulation, and human reliability modeling.
+- Judgment flow is predefined based on accident reports and domain expertise.
+- Cognitive propagation: earlier misjudgments can influence later decisions.
+- The system is fully observable (as in a standard MDP).
 
----
-
-## ⚙️ MDP Model Design
-
-### 🔁 States and Meanings
-| State | Description |
-|-------|-------------|
-| S0 | Valve A left open, operator assumes it's closed |
-| S1 | Reactor auto-trip |
-| S2 | Ambiguous signals emerge; Valve B misread as closed |
-| S3 | Cooling water leaking, but operator believes excess water exists |
-| S4 | Auto-injection disabled; pump starts vibrating due to low level |
-| S5 | Full cooling failure → core damage (terminal) |
-
-### 🔄 Transition Probabilities
-Transitions reflect how likely the operator is to progress to the next state (i.e., next misjudgment) depending on whether intervention occurred.
-
-| From | To | P (no_intervention) | P (intervene) | Notes |
-|------|----|----------------------|---------------|-------|
-| S0 | S1 | 0.8 | 0.1 | Operator misses initial abnormal state (Valve A open) |
-| S1 | S2 | 0.9 | 0.3 | Auto-trip causes signal overload; intervention helps reassess |
-| S2 | S3 | 0.95 | 0.8 | Valve B stuck open physically; intervention has limited effect |
-| S3 | S4 | 0.9 | 0.5 | Water level misunderstood due to poor training; harder to fix |
-| S4 | S5 | 1.0 | 0.6 | Final critical error before meltdown; fast action can help |
-| S5 | S5 | 1.0 | 1.0 | Absorbing terminal state (core damage) |
-
-### 💸 Cost Structure
-Each state-action pair has a cost. Higher cost = higher system risk or difficulty of intervention.
-
-| State | Cost (no_intervention) | Cost (intervene) | Rationale |
-|-------|-------------------------|------------------|-----------|
-| S0 | 0.0 | 0.1 | Early misjudgment; easy to correct |
-| S1 | 0.0 | 0.5 | Requires more resources to verify and interpret signals |
-| S2 | 1.0 | 0.2 | Re-checking valve B is low-cost, but impact is limited |
-| S3 | 2.0 | 1.0 | Training mismatch; intervention is expensive but important |
-| S4 | 5.0 | 0.5 | Pump vibration is urgent; intervention is effective and cheap |
-| S5 | 20.0 | 15.0 | Catastrophic failure; intervention is possible but costly |
-
-> 📌 **Note**: Total cost = (intervention cost) + (simulated consequence cost)
-
-> 🔍 **Why later interventions cost more?**
-> - 🔁 Later states represent crisis moments where mistakes compound
-> - ⚙️ Actions require more time, coordination, or system override
-> - 🧠 Human factors like stress and ambiguity make decision harder
-> - ⏱️ Correcting deep errors comes with a higher price tag
+> ⚠️ Future work will shift to POMDPs for modeling belief uncertainty and perceptual ambiguity.
 
 ---
 
-## 📈 Analysis Output
-Running `4_analysis_all.py` provides:
-- 🔹 **Cost-efficiency ranking**: which policies reduce risk with least intervention
-- 🔸 **VoI per state**: visualized as a heatmap
-- 💠 **Pareto frontier**: visualize tradeoff between cost and VoI
-- 📊 **Policy-wise intervention breakdown**: where each policy intervenes
+## ⚙️ MDP Model Summary
 
-> 📁 Output saved to `figures/`
-> 📄 Top policies saved to CSVs: `summary_with_voi.csv`, `top5_policies.csv`, `top_voi_per_cost.csv`
+Each decision point is a state. An intervention can be applied or skipped.
+
+### MDP Elements:
+- **States**: S₀ to S₅ (representing operator judgments)
+- **Actions**: {`no_intervention`, `intervene`}
+- **Transitions**: probabilistic, conditioned on action
+- **Cost**: based on both intervention burden and system consequence
+- **Policy**: A mapping of each state to an action
 
 ---
 
-Contact: seongeunpark@cmu.edu
+## 🔄 Transition & Cost Table
+
+| State | Description | Intervene | Cost | P(Fail) | P(Success) | P(Stag.) |
+|-------|-------------|-----------|------|---------|------------|----------|
+| S0 | Valve A open; operator thinks closed | No | 0.0 | 0.63 | 0.27 | 0.10 |
+|     |                                               | Yes | 0.1 | 0.09 | 0.81 | 0.10 |
+| S1 | Reactor auto-trip                              | No | 0.0 | 0.70 | 0.20 | 0.10 |
+|     |                                               | Yes | 0.5 | 0.20 | 0.70 | 0.10 |
+| S2 | Valve B misjudged as closed                    | No | 1.0 | 0.765 | 0.135 | 0.10 |
+|     |                                               | Yes | 0.2 | 0.675 | 0.225 | 0.10 |
+| S3 | Coolant leak misunderstood                     | No | 2.0 | 0.81 | 0.09 | 0.10 |
+|     |                                               | Yes | 1.0 | 0.45 | 0.45 | 0.10 |
+| S4 | Pump vibration misjudged, disabled             | No | 5.0 | 0.85 | 0.05 | 0.10 |
+|     |                                               | Yes | 0.5 | 0.90 | 0.50 | 0.10 |
+| S5 | Cooling fails; core damage (terminal)          | No | 20.0 | 0.95 | 0.70 | 0.10 |
+|     |                                               | Yes | 15.0 | 1.00 | 0.00 | 0.00 |
+
+> Non-intervention has zero immediate cost, but hidden future risks.
+
+---
+
+## 📈 Simulation Methodology
+
+- 64 policies ($2^6$) simulated using Monte Carlo (10,000 runs each)
+- VoI = Risk reduction relative to baseline policy (no intervention)
+- VoI per Cost = VoI normalized by total intervention cost
+- Policies with cost ≤ 1.5 are prioritized for realism
+
+---
+
+## 🔍 Key Findings
+
+- Best risk reduction (77%) achieved by Policy #21 (moderate cost)
+- Highest efficiency by Policy #12 (VoI/Cost = 156.5) with only S0 intervention
+- Targeted early-stage interventions (S0--S2) are most effective
+
+---
+
+## 📊 Visualizations
+
+- **Risk vs Cost scatter**: darker = lower risk
+- **VoI heatmap**: highlights high-value intervention states
+- **Efficiency Pareto plot**: identifies cost-effective policies
+
+All saved to `/figures/` upon running `4_analysis_all.py`.
+
+---
+
+## 🚧 Limitations & Future Work
+
+- MDP assumes known operator state; VoI here reflects value of correction.
+- In reality, operators work under uncertainty.
+- Upcoming extension: **POMDP formulation** to model hidden states and belief dynamics.
+- VoI will then represent the benefit of resolving uncertainty, not just fixing known misjudgments.
+
+---
+
+## 📬 Contact
+
+**Seongeun Park**  
+📧 seongeup@andrew.cmu.edu  
+🔗 [GitHub Repository](https://github.com/separk-1/mdp-intervention)
